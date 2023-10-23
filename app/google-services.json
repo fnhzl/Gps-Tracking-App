@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "641145516100",
+    "project_id": "family-tracking-apps-4c2b0",
+    "storage_bucket": "family-tracking-apps-4c2b0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:641145516100:android:a69072290640e74454cc11",
+        "android_client_info": {
+          "package_name": "com.example.v2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgrMAXcbGuabX0lZvBgjcbd7h-oU5D8T8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
