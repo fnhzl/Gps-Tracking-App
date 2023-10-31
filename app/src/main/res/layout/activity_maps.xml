@@ -44,7 +44,7 @@
             android:layout_width="293dp"
             android:layout_height="56dp"
             android:layout_weight="1"
-            android:hint="Enter Group ID" />
+            android:hint="Enter Group Code" />
 
         <Button
             android:id="@+id/trackButton1"

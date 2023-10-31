@@ -32,7 +32,6 @@ public class MainScreen extends AppCompatActivity {
     static String intentdata;
     ArrayList<String> users=new ArrayList<>();User user = new User();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,9 +39,6 @@ public class MainScreen extends AppCompatActivity {
         listview = (ListView)findViewById(R.id.listview);
         mAuth = FirebaseAuth.getInstance();
         String uid =mAuth.getCurrentUser().getUid();
-
-
-
 
         //main refrence
         final DatabaseReference grpinfo = FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("Group");
@@ -52,7 +48,6 @@ public class MainScreen extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 group = dataSnapshot.getValue().toString();
                 Toast.makeText(getApplicationContext(),group,Toast.LENGTH_SHORT).show();
-
             }
 
             @Override
@@ -62,15 +57,12 @@ public class MainScreen extends AppCompatActivity {
         });
 
         // reference for now
-        final DatabaseReference userInfo = FirebaseDatabase.getInstance().getReference().child("Groups").child(group);
-
-
+        final DatabaseReference userInfo = FirebaseDatabase.getInstance().getReference().child("Groups").child(group).child("Groupmembers");
         // array adapter
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,users);
 
         listview.setAdapter(adapter);
 
-        //listner to populate list view
         userInfo.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -133,14 +125,8 @@ public class MainScreen extends AppCompatActivity {
 
                     }
                 });
-
-
-
             }
         });
-
-
-
     }
 
 

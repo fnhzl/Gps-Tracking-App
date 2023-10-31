@@ -67,7 +67,7 @@ public class Joingp extends AppCompatActivity {
                 String code = jcode.getText().toString();
 
 
-                DatabaseReference jRef = FirebaseDatabase.getInstance().getReference().child("Groups").child(code).child(uid);
+                DatabaseReference jRef = FirebaseDatabase.getInstance().getReference().child("Groups").child(code).child("Groupmembers").child(uid);
                 Map newUser = new HashMap();
                 newUser.put("Name",uname);
 

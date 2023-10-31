@@ -26,11 +26,9 @@ import java.util.Map;
 public class Creategp extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListner;
-    private Button create,Back;
+    private Button create, Back;
     private EditText mcode;
-    String uname="";
-
-
+    String uname = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +36,7 @@ public class Creategp extends AppCompatActivity {
         setContentView(R.layout.activity_creategp);
 
         mAuth = FirebaseAuth.getInstance();
-        create =(Button)findViewById(R.id.creategp);
+        create = (Button) findViewById(R.id.creategp);
         mcode = (EditText) findViewById(R.id.code);
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
         final String uid = firebaseUser.getUid();
@@ -48,53 +46,43 @@ public class Creategp extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 uname = dataSnapshot.getValue().toString();
-                Log.d("Updated","Hry");
-                Toast.makeText(getApplicationContext(),uname,Toast.LENGTH_SHORT).show();
+                Log.d("Updated", "Hey");
+                Toast.makeText(getApplicationContext(), uname, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
-
-
-
 
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String code = mcode.getText().toString();
 
-                DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("Groups").child(code).child(uid);
-                Map newPost = new HashMap();
+                DatabaseReference groupRef = FirebaseDatabase.getInstance().getReference().child("Groups").child(code);
 
-                newPost.put("Name",uname);
+                // Create a Map to store group details
+                Map<String, Object> groupData = new HashMap<>();
+                groupData.put("Admin", uid); // Store the admin's UID
+                groupData.put("AdminName", uname); // Store the admin's name
 
-                
+                groupRef.setValue(groupData);
 
-                mRef.setValue(newPost);
-
-                DatabaseReference groupRef = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
-                groupRef.child("Group").setValue(code);
+                DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
+                userRef.child("Group").setValue(code);
 
                 Intent intent = new Intent(Creategp.this, Home.class);
                 startActivity(intent);
 
-                Toast.makeText(getApplicationContext(),"Group Created",Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(getApplicationContext(), "Group Created", Toast.LENGTH_SHORT).show();
             }
-
-
         });
     }
-
 
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(Creategp.this, Home.class);
         startActivity(intent);
     }
-
 }
-
